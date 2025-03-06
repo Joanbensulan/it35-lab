@@ -1,6 +1,12 @@
 
 import { 
+  IonButton,
     IonButtons,
+      IonCard,
+      IonCardContent,
+      IonCardHeader,
+      IonCardSubtitle,
+      IonCardTitle,
       IonContent, 
       IonHeader, 
       IonMenuButton, 
@@ -21,16 +27,17 @@ import {
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100%',
-            }}
-          >
-            Feed
-          </div>
+       <IonCard>
+      <IonCardHeader>
+        <IonCardTitle>Card Title</IonCardTitle>
+        <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
+      </IonCardHeader>
+
+      <IonCardContent>Here's a small text description for the card content. Nothing more, nothing less.</IonCardContent>
+
+      <IonButton fill="clear">Action 1</IonButton>
+      <IonButton fill="clear">Action 2</IonButton>
+    </IonCard>
         </IonContent>
       </IonPage>
     );
