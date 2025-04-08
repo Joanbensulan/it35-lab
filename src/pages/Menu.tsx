@@ -14,16 +14,20 @@ import {
     IonTitle, 
     IonToolbar
     } from '@ionic/react'
-  import {homeOutline, logOutOutline, rocketOutline} from 'ionicons/icons';
+  import {homeOutline, logOutOutline, rocketOutline, settingsOutline} from 'ionicons/icons';
   import { Redirect, Route } from 'react-router';
   import Home from './Home';
   import About from './About';
   import Details from './Details';
-  
+  import { supabase } from '../utils/supabaseClient';
+  import { useState } from 'react';
+  import EditProfilePage from './EditProfilePage';
+
   const Menu: React.FC = () => {
     const path = [
         {name:'Home', url: '/it35-lab/app/Home', icon: homeOutline},
         {name:'About', url: '/it35-lab/app/About', icon: rocketOutline},
+        {name:'Profile', url: '/it35-lab/app/profile', icon: settingsOutline},
     ]
     return (
         <IonPage>
@@ -58,6 +62,7 @@ import {
                     <Route exact path="/it35-lab/app/Home" component={Home} />
                     <Route exact path="/it35-lab/app/home/details" component={Details} />
                     <Route exact path="/it35-lab/app/About" component={About} />
+                    <Route exact path="/it35-lab/app/profile" component={EditProfilePage} />
                     <Route exact path="/it35-lab/app">
                         <Redirect to="/it35-lab/app/Home"/>
                     </Route>
