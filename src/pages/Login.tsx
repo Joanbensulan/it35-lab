@@ -1,83 +1,101 @@
 import { 
-  IonAvatar,
-    IonButton,
-    IonButtons,
-      IonContent, 
-      IonHeader, 
-      IonIcon, 
-      IonInput, 
-      IonInputPasswordToggle, 
-      IonItem, 
-      IonMenuButton, 
-      IonPage, 
-      IonTitle, 
-      IonToolbar, 
-      useIonRouter
-  } from '@ionic/react';
-import { logoFacebook, logoInstagram, logoIonic, logoTiktok } from 'ionicons/icons';
   
-  const Login: React.FC = () => {
-    const navigation = useIonRouter();
+  IonButton, 
+  IonContent, 
   
-    const doLogin = () => {
-        navigation.push('/it35-lab/app','forward','replace');
+  IonInput, 
+  IonItem, 
+  IonPage, 
+  IonTitle, 
+  IonToolbar, 
+  useIonRouter 
+} from '@ionic/react';
+
+
+import { useState } from 'react';
+
+const Login: React.FC = () => {
+  const navigation = useIonRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const doLogin = () => {
+ 
+    if (!email || !password) {
+      setErrorMessage('Both fields are required.');
+      return;
     }
-    return (
-      <IonPage>
-        <IonContent className='ion-padding'>
 
-        <div style={{
-                  display: 'flex',
-                  flexDirection:'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  height: '100%',
-                  width:'100%',
-                  marginTop:'-10rem',
-                  marginBottom:'-18rem',
-                }}>
-             <IonAvatar
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '150px',
-                      height: '150px',
-                      borderRadius: '50%', 
-                      overflow: 'hidden' 
-                    }}
-                  >
-                   
-                    {
-                     <IonIcon 
-                      icon={logoTiktok}
-                      color='black'
-                      style={{ fontSize: '120px', color: '#6c757d' }} 
-                    />
-                    }
-                  </IonAvatar>
-                  <h1 style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>USER LOGIN</h1>
-                    
-          </div>
-          
-            <IonTitle>Login</IonTitle>
-          <IonItem>
-        <IonInput label="Email input" type="email" placeholder="joanbensulan2@gmail.com"></IonInput>
-      </IonItem>
-
-        <IonInput type="password" label="Password" value="HELLOKITTY">
-      <IonInputPasswordToggle slot="end"></IonInputPasswordToggle>
-    </IonInput>
-            <IonButton onClick={() => doLogin()} expand="full">
-                Login
-            </IonButton>
-        </IonContent>
-      </IonPage>
-    );
+   
+    setErrorMessage('');
+    navigation.push('/it35-lab/app', 'forward');
   };
+
+  return (
+    <IonPage>
+      <IonContent className='ion-padding'>
+        <div 
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+            width: '100%',
+            marginTop: '-10rem',
+            marginBottom: '-18rem',
+          }}
+        >
   
-  export default Login;
+
+        
+        
+        </div>
+
+        <IonTitle>LOGIN</IonTitle>
+
+        {errorMessage && (
+          <div style={{ color: 'red', textAlign: 'center', marginBottom: '1rem' }}>
+            {errorMessage}
+          </div>
+        )}
+
+        <IonItem>
+          <IonInput 
+            label="Email"
+            type="email"
+            value={email}
+            placeholder="Enter your email"
+            onIonInput={(e) => setEmail(e.detail.value!)}
+          />
+        </IonItem>
+
+        <IonItem>
+          <IonInput
+            type={showPassword ? "text" : "password"}
+            label="Password"
+            value={password}
+            placeholder="Enter your password"
+            onIonInput={(e) => setPassword(e.detail.value!)}
+          />
+          <IonButton fill="clear" onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? 'Hide' : 'Show'}
+          </IonButton>
+        </IonItem>
+
+        <IonButton onClick={doLogin} expand="full" style={{ marginTop: '1rem' }}>
+          Login
+        </IonButton>
+
+
+        <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+        <IonButton routerLink="/it35-lab/app/home/signup" fill="clear">Creating  New Account</IonButton>
+        </div>
+      </IonContent>
+    </IonPage>
+  );
+};
+
+export default Login;
