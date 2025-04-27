@@ -1,17 +1,13 @@
-
 import { 
   IonAlert,
-  IonAvatar,
   IonButton,
   IonContent, 
-  IonIcon, 
   IonInput, 
   IonInputPasswordToggle,  
   IonPage,  
   IonToast,  
   useIonRouter
 } from '@ionic/react';
-import { logoIonic } from 'ionicons/icons';
 import { useState } from 'react';
 import { supabase } from '../utils/supabaseClient';
 
@@ -52,62 +48,79 @@ const Login: React.FC = () => {
   
   return (
     <IonPage>
-      <IonContent className='ion-padding'>
+      <IonContent
+        fullscreen
+        style={{
+          background: 'linear-gradient(180deg, #2b1055 0%, #7597de 100%)',
+          backgroundImage: `url('/assets/winter-bg.png')`, // You need to add a similar background image in /public/assets
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          position: 'relative',
+        }}
+      >
         <div style={{
-          display: 'flex',
-          flexDirection:'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop:'25%'
+          backdropFilter: 'blur(10px)',
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          borderRadius: '20px',
+          padding: '30px 20px',
+          margin: '50px auto',
+          width: '90%',
+          maxWidth: '400px',
+          color: 'white',
+          textAlign: 'center',
+          border: '1px solid rgba(255, 255, 255, 0.2)'
         }}>
-          <IonAvatar
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '150px',
-              height: '150px',
-              borderRadius: '50%', 
-              overflow: 'hidden' 
-            }}
-          >
-            <IonIcon 
-              icon={logoIonic}
-              color='primary'
-              style={{ fontSize: '120px', color: '#6c757d' }} 
-            />
-          </IonAvatar>
-          <h1 style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>USER LOGIN</h1>
+          <h1 style={{ fontSize: '2rem', marginBottom: '20px' }}>Login</h1>
+
           <IonInput
-            label="Email" 
-            labelPlacement="floating" 
+            label="Email"
+            labelPlacement="floating"
             fill="outline"
             type="email"
-            placeholder="Enter Email"
+            placeholder="Enter your email"
             value={email}
-            onIonChange={e => setEmail(e.detail.value!)}
+            onIonInput={e => setEmail(e.detail.value!)}
+            style={{ marginBottom: '15px', color: 'white' }}
           />
-          <IonInput style={{ marginTop:'10px' }}      
+          
+          <IonInput
+            label="Password"
+            labelPlacement="floating"
             fill="outline"
             type="password"
-            placeholder="Password"
+            placeholder="Enter your password"
             value={password}
-            onIonChange={e => setPassword(e.detail.value!)}
+            onIonInput={e => setPassword(e.detail.value!)}
+            style={{ marginBottom: '10px', color: 'white' }}
           >
-            <IonInputPasswordToggle slot="end"></IonInputPasswordToggle>
+            <IonInputPasswordToggle slot="end" />
           </IonInput>
-        </div>
-        <IonButton onClick={doLogin} expand="full" shape='round'>
-          Login
-        </IonButton>
 
-        <IonButton routerLink="/it35-lab/app/home/signup" expand="full" fill="clear" shape='round'>
-          Don't have an account?
-        </IonButton>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            fontSize: '0.9rem',
+            marginBottom: '20px',
+            color: '#ccc'
+          }}>
+            <label>
+              <input type="checkbox" style={{ marginRight: '5px' }} />
+              Remember Me
+            </label>
+            
+          </div>
+
+          <IonButton onClick={doLogin} expand="block" shape="round" color="primary">
+            Log In
+          </IonButton>
+
+          <p style={{ marginTop: '20px', fontSize: '0.9rem' }}>
+            Don't have an account? 
+            <a href="/it35-lab/app/home/signup" style={{ marginLeft: '5px', textDecoration: 'underline', color: 'lightblue' }}>
+              Register
+            </a>
+          </p>
+        </div>
 
         {/* Reusable AlertBox Component */}
         <AlertBox message={alertMessage} isOpen={showAlert} onClose={() => setShowAlert(false)} />
