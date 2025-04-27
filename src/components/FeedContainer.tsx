@@ -109,13 +109,8 @@ const FeedContainer = () => {
   };
 
   return (
-    <IonApp>
-      <IonPage>
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>Posts</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+    <>
+
         <IonContent>
           {user ? (
             <>
@@ -205,8 +200,7 @@ const FeedContainer = () => {
           message="Post updated successfully!"
           buttons={['OK']}
         />
-      </IonPage>
-    </IonApp>
+    </>
   );
 };
 
