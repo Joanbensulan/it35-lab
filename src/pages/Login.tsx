@@ -1,11 +1,11 @@
-import { 
+import {
   IonAlert,
   IonButton,
-  IonContent, 
-  IonInput, 
-  IonInputPasswordToggle,  
-  IonPage,  
-  IonToast,  
+  IonContent,
+  IonInput,
+  IonInputPasswordToggle,
+  IonPage,
+  IonToast,
   useIonRouter
 } from '@ionic/react';
 import { useState } from 'react';
@@ -40,24 +40,28 @@ const Login: React.FC = () => {
       return;
     }
 
-    setShowToast(true); 
+    setShowToast(true);
     setTimeout(() => {
       navigation.push('/it35-lab/app', 'forward', 'replace');
     }, 300);
   };
-  
+
   return (
     <IonPage>
       <IonContent
         fullscreen
         style={{
           background: 'linear-gradient(180deg, #2b1055 0%, #7597de 100%)',
-          backgroundImage: `url('/assets/winter-bg.png')`, // You need to add a similar background image in /public/assets
+          backgroundImage: `url('/assets/winter-bg.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           position: 'relative',
         }}
       >
+        {/* 🔄 Rotating colorful background */}
+        <div className="rotating-bg"></div>
+
+        {/* Frosted Glass Card */}
         <div style={{
           backdropFilter: 'blur(10px)',
           backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -68,7 +72,9 @@ const Login: React.FC = () => {
           maxWidth: '400px',
           color: 'white',
           textAlign: 'center',
-          border: '1px solid rgba(255, 255, 255, 0.2)'
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          position: 'relative',
+          zIndex: 2
         }}>
           <h1 style={{ fontSize: '2rem', marginBottom: '20px' }}>Login</h1>
 
@@ -77,21 +83,23 @@ const Login: React.FC = () => {
             labelPlacement="floating"
             fill="outline"
             type="email"
+             color="success"
             placeholder="Enter your email"
             value={email}
             onIonInput={e => setEmail(e.detail.value!)}
-            style={{ marginBottom: '15px', color: 'white' }}
+            style={{ marginBottom: '15px', color: 'red' }}
           />
-          
+
           <IonInput
             label="Password"
             labelPlacement="floating"
             fill="outline"
+             color="success"
             type="password"
             placeholder="Enter your password"
             value={password}
             onIonInput={e => setPassword(e.detail.value!)}
-            style={{ marginBottom: '10px', color: 'white' }}
+            style={{ marginBottom: '15px', color: 'red' }}
           >
             <IonInputPasswordToggle slot="end" />
           </IonInput>
@@ -107,25 +115,19 @@ const Login: React.FC = () => {
               <input type="checkbox" style={{ marginRight: '5px' }} />
               Remember Me
             </label>
-           
           </div>
 
-          <IonButton onClick={doLogin} expand="block" shape="round" color="primary">
+          <IonButton onClick={doLogin} expand="block" color="danger">
             Log In
           </IonButton>
 
-          <p style={{ marginTop: '20px', fontSize: '0.9rem' }}>
-            Don't have an account? 
-            <a href="/it35-lab/app/home/signup" style={{ marginLeft: '5px', textDecoration: 'underline', color: 'lightblue' }}>
-              Register
-            </a>
-          </p>
+          <IonButton routerLink="/it35-lab/app/home/signup" expand="full" fill="clear" shape='round' style={{ color: 'lightblue', marginTop: '10px' }}>
+            Don't have an account?
+          </IonButton>
         </div>
 
-        {/* Reusable AlertBox Component */}
         <AlertBox message={alertMessage} isOpen={showAlert} onClose={() => setShowAlert(false)} />
 
-        {/* IonToast for success message */}
         <IonToast
           isOpen={showToast}
           onDidDismiss={() => setShowToast(false)}

@@ -68,15 +68,13 @@ const SignUp: React.FC = () => {
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(password, salt);
 
-            const { error: insertError } = await supabase.from("users").insert([
-                {
-                    username,
-                    user_email: email,
-                    user_firstname: firstName,
-                    user_lastname: lastName,
-                    user_password: hashedPassword,
-                },
-            ]);
+            const { error: insertError } = await supabase.from("users").insert([{
+                username,
+                user_email: email,
+                user_firstname: firstName,
+                user_lastname: lastName,
+                user_password: hashedPassword,
+            }]);
 
             if (insertError) {
                 throw new Error("Failed to save user data: " + insertError.message);
@@ -105,6 +103,10 @@ const SignUp: React.FC = () => {
                     position: 'relative',
                 }}
             >
+                {/* 🔄 Rotating colorful background */}
+                <div className="rotating-bg"></div>
+
+                {/* 🔒 Card container */}
                 <div style={{
                     backdropFilter: 'blur(10px)',
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -115,25 +117,27 @@ const SignUp: React.FC = () => {
                     maxWidth: '400px',
                     color: 'white',
                     textAlign: 'center',
-                    border: '1px solid rgba(255, 255, 255, 0.2)'
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    position: 'relative',
+                    zIndex: 2
                 }}>
                     <h1 style={{ fontSize: '2rem', marginBottom: '20px' }}>Create your account</h1>
 
-                    <IonInput label="Username" labelPlacement="floating" fill="outline" type="text" placeholder="Enter a unique username" value={username} onIonInput={e => setUsername(e.detail.value!)} style={{ marginBottom: '15px', color: 'white' }} />
-                    <IonInput label="First Name" labelPlacement="floating" fill="outline" type="text" placeholder="Enter your first name" value={firstName} onIonInput={e => setFirstName(e.detail.value!)} style={{ marginBottom: '15px', color: 'white' }} />
-                    <IonInput label="Last Name" labelPlacement="floating" fill="outline" type="text" placeholder="Enter your last name" value={lastName} onIonInput={e => setLastName(e.detail.value!)} style={{ marginBottom: '15px', color: 'white' }} />
-                    <IonInput label="Email" labelPlacement="floating" fill="outline" type="email" placeholder="youremail@nbsc.edu.ph" value={email} onIonInput={e => setEmail(e.detail.value!)} style={{ marginBottom: '15px', color: 'white' }} />
-                    <IonInput label="Password" labelPlacement="floating" fill="outline" type="password" placeholder="Enter password" value={password} onIonInput={e => setPassword(e.detail.value!)} style={{ marginBottom: '15px', color: 'white' }}>
+                    <IonInput label="Username" labelPlacement="floating" fill="outline" color="success" type="text" placeholder="Enter a unique username" value={username} onIonInput={e => setUsername(e.detail.value!)} style={{ marginBottom: '15px', color: 'red' }} />
+                    <IonInput label="First Name" labelPlacement="floating" fill="outline"color="success"  type="text" placeholder="Enter your first name" value={firstName} onIonInput={e => setFirstName(e.detail.value!)} style={{ marginBottom: '15px', color: 'red' }} />
+                    <IonInput label="Last Name" labelPlacement="floating" fill="outline" color="success" type="text" placeholder="Enter your last name" value={lastName} onIonInput={e => setLastName(e.detail.value!)} style={{ marginBottom: '15px', color: 'red' }} />
+                    <IonInput label="Email" labelPlacement="floating" fill="outline" color="success" type="email" placeholder="youremail@nbsc.edu.ph" value={email} onIonInput={e => setEmail(e.detail.value!)} style={{ marginBottom: '15px', color: 'red' }} />
+                    <IonInput label="Password" labelPlacement="floating" fill="outline" color="success" type="password" placeholder="Enter password" value={password} onIonInput={e => setPassword(e.detail.value!)} style={{ marginBottom: '15px', color: 'red' }}>
                         <IonInputPasswordToggle slot="end" />
                     </IonInput>
-                    <IonInput label="Confirm Password" labelPlacement="floating" fill="outline" type="password" placeholder="Confirm password" value={confirmPassword} onIonInput={e => setConfirmPassword(e.detail.value!)} style={{ marginBottom: '15px', color: 'white' }}>
+                    <IonInput label="Confirm Password" labelPlacement="floating" fill="outline" color="success" type="password" placeholder="Confirm password" value={confirmPassword} onIonInput={e => setConfirmPassword(e.detail.value!)} style={{ marginBottom: '15px', color: 'red' }}>
                         <IonInputPasswordToggle slot="end" />
                     </IonInput>
 
-                    <IonButton onClick={handleOpenVerificationModal} expand="block" shape="round" color="primary" style={{ marginTop: '10px' }}>
+                    <IonButton onClick={handleOpenVerificationModal} expand="block" color="danger" style={{ marginTop: '10px' }}>
                         Register
                     </IonButton>
-                    <IonButton routerLink="/it35-lab" expand="block" fill="clear" shape="round" style={{ color: 'lightblue', marginTop: '10px' }}>
+                    <IonButton routerLink="/it35-lab" expand="block" fill="clear" style={{ color: 'lightblue', marginTop: '10px' }}>
                         Already have an account?
                     </IonButton>
                 </div>
@@ -171,13 +175,12 @@ const SignUp: React.FC = () => {
                             <p>Your account has been created successfully.</p>
                             <p>Please check your email inbox!</p>
                         </IonText>
-                        <IonButton routerLink="/it35-lab" routerDirection="back" color="primary" style={{ marginTop: '20px' }}>
+                        <IonButton routerLink="/it35-lab" routerDirection="back" color="danger" style={{ marginTop: '20px' }}>
                             Go to Login
                         </IonButton>
                     </IonContent>
                 </IonModal>
 
-                {/* Reusable AlertBox */}
                 <AlertBox message={alertMessage} isOpen={showAlert} onClose={() => setShowAlert(false)} />
             </IonContent>
         </IonPage>
